@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const todos = [
+let todos = [
   {
     id: 1,
     task: 'finish task',
@@ -15,22 +15,6 @@ const todos = [
   }
 ];
 
-class TodoList extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to my TODO list</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -41,36 +25,62 @@ class App extends Component {
   }
 
   handleOnClick = (todoItem) => {
-    this.setState({
-      todos: this.state.todos.map((item) => {
-        let answer = item;
-        if (item.id === todoItem.id) {
-            answer = {
-              ...item,
-              isCompleted: !item.isCompleted
-            }
-        }
-        return answer;
-      })
+    const todos = this.state.todos.map((item) => {
+      let answer = item;
+      if (item.id === todoItem.id) {
+          answer = {
+            ...item,
+            isCompleted: !item.isCompleted
+          }
+      }
+      return answer;
+    })
+
+    this.setState({ 
+      todos
     }
    );
+  }
+
+  handleChange(e) {
+    let text = e.target.value;
+    this.setState({
+      value: text
+    });
+  }
+
+  createTodo() {
+    let text = this.state.value;
+    let newTodo = {
+      id: this.state.todos.length + 1,
+      task: text,
+      isCompleted: false
+    };
+    
+    todos = this.state.todos.concat([newTodo]);
+
+    this.setState({ 
+      todos
+    })
   }
 
   render() {
     const todoList = (
       <ul>
         { todos.map((todo, key) => {
-          console.log(todo);
-          return <li key={key}><button onClick={(event) => {this.handleOnClick(todo)}}>{todo.task}</button></li>
+          return <li key={key}>
+          <button onClick={ (event) => {this.handleOnClick(todo)}}>{todo.task}</button>
+          </li>
         } ) }
       </ul>
     );
-    console.log(todoList);
     return (
       <div className="App">
       <div id="items">
-      <h2>Список телефонов</h2>
-      {todoList}
+      <h2>Список задач</h2>
+        <button onClick={this.createTodo.bind(this)}>Create new</button>
+        <input type="text" value={this.state.value} onChange={this.handleChange.bind(this)} />
+        {todoList}
       </div>
       </div>
     );
