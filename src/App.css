@@ -34,3 +34,11 @@ ul li {
 li {
   margin-bottom: 10px;
 }
+
+.isInCompleted {
+  background: red;
+}
+
+.isCompleted {
+  background: green;
+}
