@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import UUID from 'uuid-js' ;
 
 const FILTER_ALL = 'all';
 const FILTER_ACTIVE = 'active';
@@ -8,13 +9,13 @@ const FILTER_COMPLETED = 'completed';
 
 let todos = [
   {
-    id: 1,
+    id: UUID.create(1).toString(),
     task: 'wash dishesa',
     isCompleted: false,
     styleColor: 'isInCompleted',
   },
   {
-    id: 2,
+    id: UUID.create(1).toString(),
     task: 'clean teeth',
     isCompleted: false,
     styleColor: 'isInCompleted',
@@ -58,7 +59,7 @@ class App extends Component {
 
   createTodo() {
     let newTodo = {
-      id: this.state.todos.length + 1,
+      id: UUID.create(1).toString(),
       task: this.state.value,
       isCompleted: false
     };
