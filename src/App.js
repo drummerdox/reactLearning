@@ -4,6 +4,7 @@ import './App.css';
 import UUID from 'uuid-js' ;
 import {TodoList} from './TodoList';
 import {AddTodo} from './AddTodo';
+import { NavBar } from './NavBar';
 
 const FILTER_ALL = 'all';
 const FILTER_ACTIVE = 'active';
@@ -30,8 +31,7 @@ class App extends Component {
 
     this.state = {
       todos: createTodos(),
-      value: ''
-  }
+    }
   }
 
   handleOnClick = (id) => {
@@ -47,16 +47,18 @@ class App extends Component {
             ...this.state.todos.slice(index + 1)
         ]
     });
+  } 
+
+  isParamsSetted(param) {
+      if(param) {
+        //validation
+        return param;
+      }
   }
 
-  handleChange(e) {
-    let text = e.target.value;
-    this.setState({
-      value: text
-    });
-  }
-
-  createTodo = (value) => this.setState({
+  createTodo = (value) => this.setState(
+    this.isParamsSetted(value) &&
+    {
     todos: [...this.state.todos, {
         id: UUID.create(1).toString(),
         task: value,
@@ -64,26 +66,43 @@ class App extends Component {
     }]
   });
 
-  applyFilter(todos, filter) {
-    switch (todos) {
-        case FILTER_COMPLETED:
-            return todos.filter(todo => todos.isCompleted === true);
+  applyFilter = (filter) => {
+    let filteredTodos;
+    const { todos } = this.state;
 
-        case FILTER_ACTIVE:
-            return todos.filter(item => todos.isCompleted !== true);
-
-        default:
-            return todos;
+    switch (filter) {
+        case 'completed':
+          filteredTodos = todos.filter(todo => todo.isCompleted === true);
+        case 'pending':
+          filteredTodos = todos.filter(todo => todo.isCompleted !== true);
+        case 'all':
+          filteredTodos = todos;
+        default:  
+          filteredTodos = todos;
     }
+
+    this.setState({todos: filteredTodos});
   }
   
+  deleteTodo = (id) => {
+    const newTodos = this.state.todos.filter(todo => id !== todo.id);
+    this.setState({todos: newTodos});
+  }
+
   render() {
     return (
       <div className="App">
       <div id="items">
           <h2>Список задач</h2>
+          <NavBar
+            applyFilterForElements = {this.applyFilter}
+          />
           <AddTodo onCreateClick={this.createTodo}/>
-          <TodoList todos={this.state.todos} onClick={this.handleOnClick}/>
+          <TodoList 
+            todos={this.state.todos}
+            onClick={this.handleOnClick}
+            handleDelete={this.deleteTodo}
+          />
       </div>
       </div>
     );

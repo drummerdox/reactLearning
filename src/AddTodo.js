@@ -2,7 +2,7 @@ import React from 'react';
 
 export class AddTodo extends React.Component {
     constructor(props) {
-        super(props); // this.props= props;
+        super(props);
 
         this.state = {
             value: ''

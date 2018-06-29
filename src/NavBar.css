@@ -1,0 +1,9 @@
+.completed {
+    background:green;
+}
+.panding {
+    background:red;
+}
+.total {
+    background:blue;
+}
