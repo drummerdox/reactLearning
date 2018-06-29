@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import UUID from 'uuid-js' ;
+import {TodoList} from './TodoList';
+import {AddTodo} from './AddTodo';
 
 const FILTER_ALL = 'all';
 const FILTER_ACTIVE = 'active';
 const FILTER_COMPLETED = 'completed';
 
-let todos = [
+let createTodos = () => [
   {
     id: UUID.create(1).toString(),
-    task: 'wash dishesa',
+    task: 'wash dishes',
     isCompleted: false,
     styleColor: 'isInCompleted',
   },
@@ -27,27 +29,24 @@ class App extends Component {
     super(props);
 
     this.state = {
-      todos: todos
-    }
+      todos: createTodos(),
+      value: ''
+  }
   }
 
-  handleOnClick = (todoItem) => {
-    const todos = this.state.todos.map((item) => {
-      let answer = item;
-      if (item.id === todoItem.id) {
-          answer = {
-            ...item,
-            isCompleted: !item.isCompleted,
-            styleColor: item.isCompleted == true ? 'isCompleted' : 'isInCompleted',
-          }
-      }
-      return answer;
-    })
+  handleOnClick = (id) => {
+    const index = this.state.todos.findIndex(todo => todo.id === id);
 
-    this.setState({ 
-      todos
-    }
-   );
+    this.setState({
+        todos: [
+            ...this.state.todos.slice(0, index),
+            {
+                ...this.state.todos[index],
+                isCompleted: !this.state.todos[index].isCompleted
+            },
+            ...this.state.todos.slice(index + 1)
+        ]
+    });
   }
 
   handleChange(e) {
@@ -57,19 +56,13 @@ class App extends Component {
     });
   }
 
-  createTodo() {
-    let newTodo = {
-      id: UUID.create(1).toString(),
-      task: this.state.value,
-      isCompleted: false
-    };
-    
-    todos = this.state.todos.concat([newTodo]);
-
-    this.setState({ 
-      todos
-    })
-  }
+  createTodo = (value) => this.setState({
+    todos: [...this.state.todos, {
+        id: UUID.create(1).toString(),
+        task: value,
+        isCompleted: false
+    }]
+  });
 
   applyFilter(todos, filter) {
     switch (todos) {
@@ -83,24 +76,14 @@ class App extends Component {
             return todos;
     }
   }
-
+  
   render() {
-    const todoList = (
-      <ul>
-        { todos.map((todo, key) => {
-          return <li key={key}>
-            <button className={todo.styleColor} onClick={ (event) => {this.handleOnClick(todo)}}>{todo.task}</button>
-          </li>
-        } ) }
-      </ul>
-    );
     return (
       <div className="App">
       <div id="items">
-      <h2>Список задач</h2>
-        <button className={this.state.isCompleted} onClick={this.createTodo.bind(this)}>Create new</button>
-        <input type="text" value={this.state.value} onChange={this.handleChange.bind(this)} />
-        {todoList}
+          <h2>Список задач</h2>
+          <AddTodo onCreateClick={this.createTodo}/>
+          <TodoList todos={this.state.todos} onClick={this.handleOnClick}/>
       </div>
       </div>
     );
