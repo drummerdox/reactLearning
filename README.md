@@ -9,3 +9,8 @@ Features:
 * filter done tasks
 * filter not done
 * filter show all
+
+# How to start
+
+* npm install in root dir and npm start
+* npm install in server dir and node index.js
