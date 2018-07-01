@@ -10,7 +10,7 @@ const FILTER_ALL = 'all';
 const FILTER_ACTIVE = 'active';
 const FILTER_COMPLETED = 'completed';
 
-let createTodos = () => [
+/* let createTodos = () => [
   {
     id: UUID.create(1).toString(),
     task: 'wash dishes',
@@ -23,14 +23,14 @@ let createTodos = () => [
     isCompleted: false,
     styleColor: 'isInCompleted',
   }
-];
+]; */
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      todos: createTodos(),
+      todos: [],
     }
   }
 
@@ -78,7 +78,7 @@ class App extends Component {
         case 'all':
           filteredTodos = todos;
         default:  
-          filteredTodos = todos;
+        filteredTodos = todos.filter(todo => todo.isCompleted !== true);
     }
 
     this.setState({todos: filteredTodos});
@@ -88,6 +88,21 @@ class App extends Component {
     const newTodos = this.state.todos.filter(todo => id !== todo.id);
     this.setState({todos: newTodos});
   }
+
+  componentDidMount() {
+    this.callApi()
+      .then(res => this.setState({ todos: res.todos }))
+      .catch(err => console.log(err));
+  }
+
+  callApi = async () => {
+    const response = await fetch('/api/getTodos');
+    const body = await response.json();
+
+    if (response.status !== 200) throw Error(body.message);
+console.log(body);
+    return body;
+  };
 
   render() {
     return (
