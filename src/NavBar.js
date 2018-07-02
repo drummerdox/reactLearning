@@ -1,34 +1,25 @@
 import React from 'react';
 import './NavBar.css';
+import {Filters} from './Filters';
 
-export class NavBar  extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            value: ''
-        };
-    }
-
-    filterElements = (event) => {
-        this.props.applyFilterForElements(event);
-     };
-
-    render() {
-        return (
-            <React.Fragment>
-                <ul className="nav-bar-menu">
-                <li>
-                    <button className="completed" onClick={() => this.filterElements('completed')}> done tasks </button>
-                </li>
-                <li>
-                    <button className="panding" onClick={() => this.filterElements('active')}>in progress tasks</button>
-                </li>
-                <li>
-                    <button className="total" onClick={() => this.filterElements('all')}>all progress tasks</button>
-                </li>
-            </ul>
-            </React.Fragment>
-        );
-    }
-}
+export const NavBar = ({applyFilterForElements}) => (
+    <React.Fragment>
+        <ul className="nav-bar-menu">
+        <li>
+            <button className="completed" onClick={() => applyFilterForElements(Filters.COMPLETED)}> 
+                done tasks 
+            </button>
+        </li>
+        <li>
+            <button className="panding" onClick={() => applyFilterForElements(Filters.ACTIVE)}>
+                in progress tasks
+            </button>
+        </li>
+        <li>
+            <button className="total" onClick={() => applyFilterForElements(Filters.ALL)}>
+                all progress tasks
+            </button>
+        </li>
+    </ul>
+    </React.Fragment>
+);

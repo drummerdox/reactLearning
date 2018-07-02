@@ -15,10 +15,20 @@ export class AddTodo extends React.Component {
         value: e.target.value
     });
 
+    onSubmit = (e) => {
+        if (!this.state.value.trim()) {
+            return;
+        }
+
+        this.props.onCreateClick(this.state.value)
+    };
+
     render() {
         return (
             <React.Fragment>
-                <button onClick={() => this.props.onCreateClick(this.state.value)}>
+                <button 
+                onClick={this.onSubmit}
+                disabled={!this.state.value.trim()}>
                     Create new
                 </button>
                 <input

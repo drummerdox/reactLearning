@@ -5,10 +5,7 @@ import UUID from 'uuid-js' ;
 import {TodoList} from './TodoList';
 import {AddTodo} from './AddTodo';
 import { NavBar } from './NavBar';
-
-const FILTER_ALL = 'all';
-const FILTER_ACTIVE = 'active';
-const FILTER_COMPLETED = 'completed';
+import {Filters} from './Filters';
 
 /* let createTodos = () => [
   {
@@ -25,12 +22,26 @@ const FILTER_COMPLETED = 'completed';
   }
 ]; */
 
+const filterTodos = ({filter, todos}) => {
+  switch (filter) {
+      case Filters.COMPLETED:
+          return todos.filter(todo => todo.isCompleted === true);
+      case Filters.ACTIVE:
+          return todos.filter(todo => todo.isCompleted !== true);
+      case Filters.ALL:
+          return todos;
+      default:
+          return todos.filter(todo => todo.isCompleted !== true);
+  }
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       todos: [],
+      filter: Filters.ALL
     }
   }
 
@@ -56,33 +67,18 @@ class App extends Component {
       }
   }
 
-  createTodo = (value) => this.setState(
+  createTodo = (value) => {
     this.isParamsSetted(value) &&
+
+    this.setState(
     {
     todos: [...this.state.todos, {
         id: UUID.create(1).toString(),
         task: value,
         isCompleted: false
     }]
-  });
-
-  applyFilter = (filter) => {
-    let filteredTodos;
-    const { todos } = this.state;
-
-    switch (filter) {
-        case 'completed':
-          filteredTodos = todos.filter(todo => todo.isCompleted === true);
-        case 'pending':
-          filteredTodos = todos.filter(todo => todo.isCompleted !== true);
-        case 'all':
-          filteredTodos = todos;
-        default:  
-        filteredTodos = todos.filter(todo => todo.isCompleted !== true);
-    }
-
-    this.setState({todos: filteredTodos});
-  }
+    })
+  };
   
   deleteTodo = (id) => {
     const newTodos = this.state.todos.filter(todo => id !== todo.id);
@@ -100,21 +96,28 @@ class App extends Component {
     const body = await response.json();
 
     if (response.status !== 200) throw Error(body.message);
-console.log(body);
+
     return body;
   };
 
   render() {
+    const todos = filterTodos({
+      todos: this.state.todos,
+      filter: this.state.filter
+    });
+
     return (
       <div className="App">
       <div id="items">
           <h2>Список задач</h2>
           <NavBar
-            applyFilterForElements = {this.applyFilter}
+            applyFilterForElements = {filter => this.setState({filter}) }
           />
-          <AddTodo onCreateClick={this.createTodo}/>
+          <AddTodo 
+            onCreateClick={this.createTodo}
+          />
           <TodoList 
-            todos={this.state.todos}
+            todos={todos}
             onClick={this.handleOnClick}
             handleDelete={this.deleteTodo}
           />
