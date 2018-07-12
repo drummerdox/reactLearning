@@ -24,4 +24,10 @@ app.get('/api/getTodos', (req, res) => {
   res.send({ todos: todosDefault });
 });
 
+app.post('/api/setTodos', (req, res) => {
+  console.log(req);
+  console.log('we here /api/setTodos');
+  //res.send({ todos: todosDefault });
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

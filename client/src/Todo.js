@@ -20,6 +20,12 @@ export class Todo  extends React.Component {
     };
 
     render() {
+        function Img(props) {
+            return React.createElement('img', {
+              src: props.source
+            })
+          }
+          
         return (
             <React.Fragment>
                 <li>
