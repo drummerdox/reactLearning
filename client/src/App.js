@@ -58,9 +58,9 @@ class App extends Component {
             ...this.state.todos.slice(index + 1)
         ]
     });
-  } 
+  };
 
-  isParamsSetted(param) {
+  static isParamsSetted(param) {
       if(param) {
         //validation
         return param;
@@ -77,13 +77,15 @@ class App extends Component {
         task: value,
         isCompleted: false
     }]
-    })
+    });
+
+    this.postCall();
   };
 
   deleteTodo = (id) => {
     const newTodos = this.state.todos.filter(todo => id !== todo.id);
     this.setState({todos: newTodos});
-  }
+  };
 
   componentDidMount() {
     this.callApi()
@@ -100,21 +102,12 @@ class App extends Component {
     return body;
   };
 
- postCall = async () => {
-   console.log(123);
-    fetch('/api/setTodos',{
-      method: 'POST',
-      body: JSON.stringify({
-        task: 123
-      }),
-      headers: {"Content-Type": "application/json"}
-    })
-    .then(function(response){
-      return response.json()
-    }).then(function(body){
-      console.log(body);
-    }); 
-  }
+  postCall = async () => {
+      fetch('/api/setTodos',{method: 'POST', body: JSON.stringify({todos: this.state.todos}), headers: {"Content-Type": "application/json"}
+      }).then(function(response){return response.json()
+      });
+  };
+
   render() {
     const todos = filterTodos({
       todos: this.state.todos,
@@ -125,7 +118,6 @@ class App extends Component {
       <div className="App">
       <div id="items">
           <h2>Список задач</h2>
-          <button onClick = { this.postCall} >123123</button>
           <NavBar
             applyFilterForElements = {filter => this.setState({filter}) }
           />
