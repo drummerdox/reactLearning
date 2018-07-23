@@ -5,7 +5,8 @@ import UUID from 'uuid-js' ;
 import {TodoList} from './TodoList';
 import {AddTodo} from './AddTodo';
 import { NavBar } from './NavBar';
-import {Filters} from './Filters';
+import { Filters } from './Filters';
+import { DataPicker } from './DataPicker';
 
 /* let createTodos = () => [
   {
@@ -118,6 +119,7 @@ class App extends Component {
       <div className="App">
       <div id="items">
           <h2>Список задач</h2>
+          <DataPicker/>
           <NavBar
             applyFilterForElements = {filter => this.setState({filter}) }
           />
