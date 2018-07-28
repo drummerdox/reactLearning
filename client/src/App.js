@@ -69,7 +69,7 @@ class App extends Component {
   }
 
   createTodo = (value) => {
-    this.isParamsSetted(value) &&
+    //this.isParamsSetted(value) &&
 
     this.setState(
     {
@@ -86,6 +86,11 @@ class App extends Component {
   deleteTodo = (id) => {
     const newTodos = this.state.todos.filter(todo => id !== todo.id);
     this.setState({todos: newTodos});
+  };
+
+  datePickerOnSelect = (event, ui) => {
+      console.log('DOM changed!', event);
+      this.createTodo(event);
   };
 
   componentDidMount() {
@@ -119,7 +124,9 @@ class App extends Component {
       <div className="App">
       <div id="items">
           <h2>Список задач</h2>
-          <DataPicker/>
+          <DataPicker
+              onChange={this.datePickerOnSelect}
+          />
           <NavBar
             applyFilterForElements = {filter => this.setState({filter}) }
           />
