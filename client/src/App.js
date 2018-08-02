@@ -58,7 +58,6 @@ const Info = ({changeRoute}) => (
     </React.Fragment>
 );
 
-
 class App extends Component {
   constructor(props) {
     super(props);
