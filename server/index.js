@@ -38,6 +38,9 @@ app.post('/api/setTodos', (req, res) => {
     todos.forEach(function(todo){
         console.log(todo.task + ' Status:' + todo.isCompleted)
     });
+
+    res.json([]);
+    res.end();
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
