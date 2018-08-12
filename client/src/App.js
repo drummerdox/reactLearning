@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, hashHistory } from "react-router-dom";
 import logo from './logo.svg';
 import './App.css';
 import UUID from 'uuid-js' ;
@@ -59,6 +59,12 @@ const Info = ({changeRoute}) => (
         }}>Index</a>
     </React.Fragment>
 );
+
+const Home = () => (
+    <div>
+        Home
+    </div>
+)
 
 class App extends Component {
   constructor(props) {
@@ -175,38 +181,25 @@ class App extends Component {
     });
 
 
-    return (
-      <div className="App">
-          <div className="container">
-               <NavBar
-                   applyFilterForElements = {filter => this.setState({filter}) }
-               />
-          <table className="table">
-              <thead>
-              <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-              </tr>
-              <tr>
-                  <td>
-                           <TodoList
-                               todos={todos}
-                               onClick={this.handleOnClick}
-                               handleDelete={this.deleteTodo}
-                          />
-
-                  </td>
-              </tr>
-              </thead>
-              <tbody>
-
-              </tbody>
-        </table>
-      </div>
-      </div>
-    );
+      return (
+          <div className="App">
+              <header className="App-header">
+                  <h1 className="App-title">Welcome to React</h1>
+              </header>
+              <div>
+                  <Route exact path="/" component={Home} />
+              </div>
+              <div className="container">
+                  <Router history={Router.hashHistory}>
+                  <Route path="/" component={App} />
+                      <NavBar
+                          applyFilterForElements={filter => this.setState({filter})}
+                      />
+                      <p>Добавить новую задачу</p>
+                  </Router>
+              </div>
+          </div>
+      );
   }
 }
 
