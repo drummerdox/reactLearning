@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import logo from './logo.svg';
 import './App.css';
 import UUID from 'uuid-js' ;
@@ -7,8 +8,9 @@ import {AddTodo} from './AddTodo';
 import { NavBar } from './NavBar';
 import { Filters } from './Filters';
 import { DataPicker } from './DataPicker';
-import {Router} from './Router';
-import {Route} from './Route';
+
+//import {Router} from './Router';
+//import {Route} from './Route';
 
 /* let createTodos = () => [
   {
@@ -137,64 +139,94 @@ class App extends Component {
   };
 
 
+    //
+    // render() {
+    //     const todos = filterTodos({
+    //         todos: this.state.todos,
+    //         filter: this.state.filter
+    //     });
+    //
+    //     return (
+    //         <Router>
+    //             {({route, changeRoute}) => (
+    //                 <React.Fragment>
+    //                     <Route
+    //                         changeRoute={changeRoute}
+    //                         currentRoute={route}
+    //                         route={'/index'}
+    //                         component={Index}
+    //                     />
+    //                     <Route
+    //                         changeRoute={changeRoute}
+    //                         currentRoute={route}
+    //                         route={'/info'}
+    //                         component={Info}
+    //                     />
+    //                 </React.Fragment>
+    //             )}
+    //         </Router>
+    //     );
+    // }
 
-    render() {
-        const todos = filterTodos({
-            todos: this.state.todos,
-            filter: this.state.filter
-        });
-
-        return (
-            <Router>
-                {({route, changeRoute}) => (
-                    <React.Fragment>
-                        <Route
-                            changeRoute={changeRoute}
-                            currentRoute={route}
-                            route={'/index'}
-                            component={Index}
-                        />
-                        <Route
-                            changeRoute={changeRoute}
-                            currentRoute={route}
-                            route={'/info'}
-                            component={Info}
-                        />
-                    </React.Fragment>
-                )}
-            </Router>
-        );
-    }
-
-  // render() {
-  //   const todos = filterTodos({
-  //     todos: this.state.todos,
-  //     filter: this.state.filter
-  //   });
+  render() {
+    const todos = filterTodos({
+      todos: this.state.todos,
+      filter: this.state.filter
+    });
 
 
-    // return (
-    //   <div className="App">
-    //   <div id="items">
-    //       <h2>Список задач</h2>
-    //       <DataPicker
-    //           onChange={this.datePickerOnSelect}
-    //       />
-    //       <NavBar
-    //         applyFilterForElements = {filter => this.setState({filter}) }
-    //       />
-    //       <AddTodo
-    //         onCreateClick={this.createTodo}
-    //       />
-    //       <TodoList
-    //         todos={todos}
-    //         onClick={this.handleOnClick}
-    //         handleDelete={this.deleteTodo}
-    //       />
-    //   </div>
-    //   </div>
-    // );
-  //}
+    return (
+      <div className="App">
+          <div className="container">
+               <NavBar
+                   applyFilterForElements = {filter => this.setState({filter}) }
+               />
+          <table className="table">
+              <thead>
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                  <th scope="col">Handle</th>
+              </tr>
+              <tr>
+                  <td>
+                           <TodoList
+                               todos={todos}
+                               onClick={this.handleOnClick}
+                               handleDelete={this.deleteTodo}
+                          />
+
+                  </td>
+              </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+        </table>
+      </div>
+      </div>
+    );
+  }
 }
 
 export default App;
+
+//
+// <div id="items">
+//     <h2>Список задач</h2>
+//     <DataPicker
+//         onChange={this.datePickerOnSelect}
+//     />
+// <DataPicker
+//    onChange={this.datePickerOnSelect}
+// />
+//     <AddTodo
+//         onCreateClick={this.createTodo}
+//     />
+//     <TodoList
+//         todos={todos}
+//         onClick={this.handleOnClick}
+//         handleDelete={this.deleteTodo}
+//     />
+// </div>
