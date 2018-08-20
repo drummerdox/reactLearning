@@ -1,5 +1,5 @@
 export const Filters = Object.freeze({
    ALL: 'all',
-   ACTIVE: 'active',
+   ACTIVE: 'pending',
    COMPLETED: 'completed'
 });

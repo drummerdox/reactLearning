@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, hashHistory } from "react-router-dom";
+import { Redirect } from 'react-router';
 import logo from './logo.svg';
 import './App.css';
 import UUID from 'uuid-js' ;
@@ -67,82 +68,86 @@ const Home = () => (
 )
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      todos: [],
-      filter: Filters.ALL
+        this.state = {
+            todos: [],
+            filter: Filters.ALL
+        }
     }
-  }
 
-  handleOnClick = (id) => {
-    const index = this.state.todos.findIndex(todo => todo.id === id);
+    handleOnClick = (id) => {
+        const index = this.state.todos.findIndex(todo => todo.id === id);
 
-    this.setState({
-        todos: [
-            ...this.state.todos.slice(0, index),
+        this.setState({
+            todos: [
+                ...this.state.todos.slice(0, index),
+                {
+                    ...this.state.todos[index],
+                    isCompleted: !this.state.todos[index].isCompleted
+                },
+                ...this.state.todos.slice(index + 1)
+            ]
+        });
+    };
+
+    static isParamsSetted(param) {
+        if (param) {
+            //validation
+            return param;
+        }
+    }
+
+    createTodo = (value) => {
+        //this.isParamsSetted(value) &&
+
+        this.setState(
             {
-                ...this.state.todos[index],
-                isCompleted: !this.state.todos[index].isCompleted
-            },
-            ...this.state.todos.slice(index + 1)
-        ]
-    });
-  };
+                todos: [...this.state.todos, {
+                    id: UUID.create(1).toString(),
+                    task: value,
+                    isCompleted: false
+                }]
+            });
 
-  static isParamsSetted(param) {
-      if(param) {
-        //validation
-        return param;
-      }
-  }
+        this.postCall();
+    };
 
-  createTodo = (value) => {
-    //this.isParamsSetted(value) &&
+    deleteTodo = (id) => {
+        const newTodos = this.state.todos.filter(todo => id !== todo.id);
+        this.setState({todos: newTodos});
+    };
 
-    this.setState(
-    {
-    todos: [...this.state.todos, {
-        id: UUID.create(1).toString(),
-        task: value,
-        isCompleted: false
-    }]
-    });
+    datePickerOnSelect = (event, ui) => {
+        console.log('DOM changed!', event);
+        this.createTodo(event);
+    };
 
-    this.postCall();
-  };
+    componentDidMount() {
+        this.callApi()
+            .then(res => this.setState({todos: res.todos}))
+            .catch(err => console.log(err));
+    }
 
-  deleteTodo = (id) => {
-    const newTodos = this.state.todos.filter(todo => id !== todo.id);
-    this.setState({todos: newTodos});
-  };
+    callApi = async () => {
+        const response = await fetch('/api/getTodos');
+        const body = await response.json();
 
-  datePickerOnSelect = (event, ui) => {
-      console.log('DOM changed!', event);
-      this.createTodo(event);
-  };
+        if (response.status !== 200) throw Error(body.message);
 
-  componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ todos: res.todos }))
-      .catch(err => console.log(err));
-  }
+        return body;
+    };
 
-  callApi = async () => {
-    const response = await fetch('/api/getTodos');
-    const body = await response.json();
-
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
-  };
-
-  postCall = async () => {
-      fetch('/api/setTodos',{method: 'POST', body: JSON.stringify({todos: this.state.todos}), headers: {"Content-Type": "application/json"}
-      }).then(function(response){return response.json()
-      });
-  };
+    postCall = async () => {
+        fetch('/api/setTodos', {
+            method: 'POST',
+            body: JSON.stringify({todos: this.state.todos}),
+            headers: {"Content-Type": "application/json"}
+        }).then(function (response) {
+            return response.json()
+        });
+    };
 
 
     //
@@ -174,33 +179,75 @@ class App extends Component {
     //     );
     // }
 
-  render() {
-    const todos = filterTodos({
-      todos: this.state.todos,
-      filter: this.state.filter
-    });
+    // render() {
+    //   const todos = filterTodos({
+    //     todos: this.state.todos,
+    //     filter: this.state.filter
+    //   });
+    //
+    //
+    //     return (
+    //         <div className="App">
+    //             <header className="App-header">
+    //                 <h1 className="App-title">Welcome to React</h1>
+    //             </header>
+    //             <div>
+    //                 <Route exact path="/" component={Home} />
+    //             </div>
+    //             <div className="container">
+    //                 <Router history={Router.hashHistory}>
+    //                 <Route path="/" component={App} />
+    //                     <NavBar
+    //                         applyFilterForElements={filter => this.setState({filter})}
+    //                     />
+    //                     <p>Добавить новую задачу</p>
+    //                 </Router>
+    //             </div>
+    //         </div>
+    //     );
+    // }
 
 
-      return (
-          <div className="App">
-              <header className="App-header">
-                  <h1 className="App-title">Welcome to React</h1>
-              </header>
-              <div>
-                  <Route exact path="/" component={Home} />
-              </div>
-              <div className="container">
-                  <Router history={Router.hashHistory}>
-                  <Route path="/" component={App} />
-                      <NavBar
-                          applyFilterForElements={filter => this.setState({filter})}
-                      />
-                      <p>Добавить новую задачу</p>
-                  </Router>
-              </div>
-          </div>
-      );
-  }
+    render() {
+        return (
+            <Router>
+                <div className="App">
+                    <header className="App-header">
+                        <h1 className="App-title">Welcome to React</h1>
+                    </header>
+
+                    <div className="container">
+                        <NavBar
+                            applyFilterForElements={filter => this.setState({filter})}
+                        />
+
+                        <Route
+                            exact
+                            path="/"
+                            render={() => <Redirect to="/todos/all"/>}
+                        />
+
+                        <TodoList
+                            todos={this.state.todos}
+                            onClick={this.handleOnClick}
+                            handleDelete={this.deleteTodo}
+                        />
+
+                        <Route
+                            path="/todos/:id"
+                            render={({history, location}) => <AddTodo onCreateClick={
+                                value => {
+                                    this.createTodo(value);
+                                    console.log(location);
+                                    history.push({pathname: '/todos/all'});
+                                }}/>
+                            }
+                        />
+                    </div>
+                </div>
+            </Router>
+        );
+    }
 }
 
 export default App;
