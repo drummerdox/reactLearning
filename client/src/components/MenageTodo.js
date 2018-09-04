@@ -49,7 +49,12 @@ export class MenageTodo extends Component {
                     />
                     </FormGroup>
                 </form>
-                <Button  onClick = {this.props.onClicked } bsStyle={'primary pull-left'}>Add todos</Button>
+                <Button 
+                    onClick = {this.props.onClicked } 
+                    bsStyle={'primary pull-left'}
+                >
+                    Add todos
+                </Button>
             </div>
         );
     }

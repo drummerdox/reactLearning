@@ -31,24 +31,12 @@ export class Todos extends Component {
                 <th>{this.props.isCompleted ? 'Completed' : 'Incompleted'}</th>
                 <th>
                     <Link 
+                        {...this.props}
                         to={`/edit/`} 
-                        activeClassName="active">
+                        >
                         {'edit'}
-                    </Link> </th> 
-                {/*<th>*/}
-                    {/*<input*/}
-                        {/*type="checkbox"*/}
-                        {/*value={this.props.id}*/}
-                        {/*onChange={this.handleChangez}*/}
-                    {/*/>*/}
-                    {/*<button*/}
-                        {/*className={this.props.isCompleted ? 'Completed' : 'InCompleted'}*/}
-                        {/*onClick={this.props.onClick}*/}
-                    {/*>*/}
-                        {/*{this.props.task}*/}
-                    {/*</button>*/}
-
-                {/*</th>*/}
+                    </Link> 
+                </th> 
             </React.Fragment>
         );
     }
