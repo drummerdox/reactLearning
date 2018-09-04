@@ -4,8 +4,7 @@ import './App.css';
 import Home from "./components/Home";
 import About from "./components/About";
 import NoMatch from "./components/NoMatch";
-import { EditTodo } from './components/EditTodo';
-import { CreateTodo } from './components/CreateTodo';
+import {MenageTodo} from './components/MenageTodo';
 
 class App extends Component {
     render() {
@@ -16,8 +15,8 @@ class App extends Component {
                         <Switch>
                             <Route exact path={'/'} component={Home}/>
                             <Route path={'/about'} component={About}/>
-                            <Route path={'/add'} component={CreateTodo}/>
-                            <Route path={'/edit'} component={EditTodo}/>
+                            <Route path={'/add'} component={MenageTodo}/>
+                            <Route path={'/edit'} component={MenageTodo}/>
                             <Route component={NoMatch}/>
                         </Switch>
                     </div>
