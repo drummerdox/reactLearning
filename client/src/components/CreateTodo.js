@@ -3,13 +3,10 @@ import PropTypes from 'prop-types';
 import {Jumbotron, Grid, Button} from 'react-bootstrap';
 import UUID from 'uuid-js' ;
 
-export class AddTodo extends Component {
+export class CreateTodo extends Component {
     constructor(props) {
         super(props);
 
-        console.log(props);
-
-        
         this.state = {
             value: ''
         };
@@ -25,7 +22,7 @@ export class AddTodo extends Component {
                         {/*onChange={this.handleChange}*/}
                     {/*/>*/}
                 </div>
-                <Button  onClick = {this.props.onClicked } bsStyle={'primary pull-left'}>Add todos</Button>
+                <Button  onClick = {this.props.onClicked } bsStyle={'primary pull-left'}>Add todos!</Button>
             </div>
         );
     }
