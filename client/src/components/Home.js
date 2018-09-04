@@ -35,7 +35,6 @@ export class Home extends Component {
     };
 
     onHandleClick = () => {
-        console.log(123123);
         this.props.history.push('/add');
     }
 

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 export class Todos extends Component {
 
@@ -28,7 +29,12 @@ export class Todos extends Component {
                 <th>{this.props.id}</th>
                 <th>{this.props.task}</th>
                 <th>{this.props.isCompleted ? 'Completed' : 'Incompleted'}</th>
-                <th>link</th>
+                <th>
+                    <Link 
+                        to={`/edit/`} 
+                        activeClassName="active">
+                        {'edit'}
+                    </Link> </th> 
                 {/*<th>*/}
                     {/*<input*/}
                         {/*type="checkbox"*/}
