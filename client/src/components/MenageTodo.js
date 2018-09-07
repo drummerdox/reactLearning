@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {Jumbotron, Grid, Button, FormGroup, FormControl, ControlLabel, HelpBlock} from 'react-bootstrap';
-import UUID from 'uuid-js' ;
+import { Button, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 
 export class MenageTodo extends Component {
     constructor(props) {

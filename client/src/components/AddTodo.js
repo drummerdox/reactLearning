@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {Jumbotron, Grid, Button} from 'react-bootstrap';
-import UUID from 'uuid-js' ;
+import {Button} from 'react-bootstrap';
 
 export class AddTodo extends Component {
     constructor(props) {
@@ -22,7 +20,7 @@ export class AddTodo extends Component {
                         {/*onChange={this.handleChange}*/}
                     {/*/>*/}
                 </div>
-                <Button  onClick = {this.props.onClicked } bsStyle={'primary pull-left'}>Add todos</Button>
+                <Button  onClick = {this.props.onClicked } className="pull-right" bsStyle={'primary'}>Add todos</Button>
             </div>
         );
     }

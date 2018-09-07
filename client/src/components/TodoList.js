@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Todos} from './Todos';
-import {bsClass, Grid, Jumbotron, Table} from 'react-bootstrap';
+import {Table} from 'react-bootstrap';
 
 export const TodoList = ({todos, onClick}) => {
     return (
@@ -19,9 +19,8 @@ export const TodoList = ({todos, onClick}) => {
                 <tbody>
                 {
                     todos.map(todo => (
-                        <tr>
+                        <tr key={todo.id}>
                             <Todos
-                                key={todo.id}
                                 {...todo}
                                 onClick={() => onClick(todo.id)}
                             />
