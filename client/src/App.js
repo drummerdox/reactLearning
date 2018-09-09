@@ -17,6 +17,8 @@ class App extends Component {
                             <Route path={'/about'} component={About}/>
                             <Route path={'/add'} component={MenageTodo}/>
                             <Route path={'/edit'} component={MenageTodo}/>
+
+                            <Route path="/tasks/:id" component={props => <MenageTodo task={this.state.tasks.find(task => task.id === props.match.params.id)}  />} />
                             <Route component={NoMatch}/>
                         </Switch>
                     </div>

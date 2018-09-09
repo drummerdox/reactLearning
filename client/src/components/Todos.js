@@ -23,7 +23,7 @@ export class Todos extends Component {
                 <th>{this.props.isCompleted ? 'Completed' : 'Incompleted'}</th>
                 <th>
                     <Link 
-                        {...this.props}
+                        //{...this.props}
                         to={`/edit/`} 
                         >
                         {'edit'}
