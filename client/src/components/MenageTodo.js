@@ -8,7 +8,7 @@ export class MenageTodo extends Component {
         super(props);
 
         console.log('menager props');
-        console.log(this.history);
+        console.log(this.props);
 
         this.state = {
             task: this.props.task.task,
@@ -34,6 +34,8 @@ export class MenageTodo extends Component {
         const task = this.taskCreator();
 
         this.props.creatTask(task);
+        
+        this.props.history.push('/');
     }
     
     taskCreator = () => {

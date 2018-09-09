@@ -36,7 +36,7 @@ class App extends Component {
 
         this.setState(state => ({tasks}));
 
-        console.log(this.state.tasks);
+        //this.history.push('/');
     };
 
     taskEdit = (id) => {
@@ -60,6 +60,7 @@ class App extends Component {
       };
 
     render() {
+        
         return (
             <Router>
                 <div className="App">
@@ -67,20 +68,25 @@ class App extends Component {
                         <Switch>
                             <Route 
                                 exact path={'/'} 
-                                component ={
-                                    () => <Home tasks={this.state.tasks} />
+                                component ={() => 
+                                    <Home 
+                                    tasks={this.state.tasks} 
+                                    history = {this.props.history}
+                                    />
                                 }
                             />
                             <Route path={'/about'} component={About}/>
-                            <Route path="/add" component={() => 
+                            <Route path="/add" component={(props) => 
                                 <MenageTodo 
                                     onAddButtonClick={task => this.setState({tasks: this.state.tasks.concat(task)})} 
+                                    history = {props.history} 
                                 />} 
                             />
-                            <Route path="/edit/:id" component={props => 
+                            <Route path="/edit/:id" component = {props => 
                                 <MenageTodo 
                                     task={this.state.tasks.find(task => task.id === 1)}
-                                    creatTask = {this.createTask}  
+                                    creatTask = {this.createTask}
+                                    history = {props.history}  
                                 />
                             } 
                             />
