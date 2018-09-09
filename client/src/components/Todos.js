@@ -16,6 +16,9 @@ export class Todos extends Component {
 
      
     render() {
+        const task = this.props;
+        console.log(task);
+        
         return (
             <React.Fragment>
                 <th>{this.props.id}</th>
@@ -24,9 +27,11 @@ export class Todos extends Component {
                 <th>
                     <Link 
                         //{...this.props}
-                        to={`/edit/`} 
+                        to = {'/edit/' + this.props.id } 
+                        task = {task}
+                        params = {task}
                         >
-                        {'edit'}
+                    {'edit'}
                     </Link> 
                 </th> 
             </React.Fragment>

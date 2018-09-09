@@ -1,12 +1,20 @@
 import React, {Component} from 'react';
 import { Button, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import UUID from 'uuid-js';
 
 export class MenageTodo extends Component {
     constructor(props) {
         super(props);
 
+        console.log('menager props');
+        console.log(this.history);
+
         this.state = {
-            value: ''
+            task: this.props.task.task,
+            date: this.props.task.data,
+            isCompleted: false,
+            value: '',
         };
     }
 
@@ -14,7 +22,31 @@ export class MenageTodo extends Component {
         this.setState({ value: e.target.value });
     }
 
+    handleChangeName = (e) => {
+        this.setState({ task: e.target.task });
+    }
+
+    handleChangeDate = (e) => {
+        this.setState({ date: e.target.date });
+    }
+
+    handleCreatTask = (e) => {
+        const task = this.taskCreator();
+
+        this.props.creatTask(task);
+    }
     
+    taskCreator = () => {
+        const task = {
+            id: UUID.create(1).toString(),
+            task: this.state.task,
+            isCompleted: true,
+            data: this.state.date
+        };
+
+        return task;
+    }
+
     render() {
         return (
             <div className='container'>
@@ -27,9 +59,9 @@ export class MenageTodo extends Component {
                     <ControlLabel>Name</ControlLabel>
                     <FormControl
                         type="text"
-                        value={this.state.value}
+                        value={this.state.task}
                         placeholder="Enter text"
-                        onChange={this.handleChange}
+                        onChange={this.handleChangeName}
                     />
                     
                     <ControlLabel>Select</ControlLabel>
@@ -41,14 +73,14 @@ export class MenageTodo extends Component {
                     <ControlLabel>Expire date</ControlLabel>
                     <FormControl
                         type="text"
-                        value={this.state.value}
+                        value={this.state.date}
                         placeholder="Enter text"
-                        onChange={this.handleChange}
+                        onChange={this.handleChangeDate}
                     />
                     </FormGroup>
                 </form>
                 <Button 
-                    onClick = {this.props.onClicked } 
+                    onClick = {this.handleCreatTask} 
                     className="pull-right" 
                     bsStyle={'primary'}
                 >
@@ -58,3 +90,7 @@ export class MenageTodo extends Component {
         );
     }
 }
+
+MenageTodo.propTypes = {
+    handleCreatTask: PropTypes.func.isRequired,
+};
