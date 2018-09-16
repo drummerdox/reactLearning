@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { Button, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import UUID from 'uuid-js';
 
 export class MenageTodo extends Component {
     constructor(props) {
@@ -66,7 +65,6 @@ export class MenageTodo extends Component {
                         value={this.state.complition}
                         onChange={e => this.setState({complition: e.target.value})}
                         placeholder="Enter text"
-                        onChange={this.handleChangeDate}
                     />
                     </FormGroup>
                 </form>

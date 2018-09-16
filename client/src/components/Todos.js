@@ -17,8 +17,7 @@ export class Todos extends Component {
      
     render() {
         const task = this.props;
-        console.log(task);
-        
+      
         return (
             <React.Fragment>
                 <th>{this.props.id}</th>

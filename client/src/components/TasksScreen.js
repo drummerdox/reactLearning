@@ -10,7 +10,7 @@ export const TasksScreen = withRouter(({tasks, onAdd, onEdit, history}) => (
         <Route
             exact path={'/'}
             component={props =>
-                console.log(props) || <Home
+                <Home
                     tasks={tasks}
                     history={history}
                 />

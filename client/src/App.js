@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
+import {BrowserRouter as Router} from 'react-router-dom';
 import './App.css';
-import Home from "./components/Home";
-import About from "./components/About";
-import NoMatch from "./components/NoMatch";
-import {MenageTodo} from './components/MenageTodo';
 import {TasksScreen} from './components/TasksScreen';
 import * as Model from './tasksModel';
 
