@@ -7,19 +7,19 @@ export class MenageTodo extends Component {
     constructor(props) {
         super(props);
 
-        console.log('menager props');
-        console.log(this.props);
-
-        this.state = {
-            task: this.props.task.task,
-            date: this.props.task.data,
-            isCompleted: false,
-            value: '',
-        };
-    }
-
-    handleChange = (e) => {
-        this.setState({ value: e.target.value });
+        if (this.props.task) {
+            this.state = {
+                task: this.props.task.task || '',
+                date: this.props.task.data || '',
+                complition: this.props.task.isCompleted ? 'completed' : 'incompleted'
+            }
+        } else {
+            this.state = {
+                task: '',
+                date: '',
+                complition: 'incompleted'
+            }
+        }
     }
 
     handleChangeName = (e) => {
@@ -31,22 +31,11 @@ export class MenageTodo extends Component {
     }
 
     handleCreatTask = (e) => {
-        const task = this.taskCreator();
-
-        this.props.creatTask(task);
-        
-        this.props.history.push('/');
-    }
-    
-    taskCreator = () => {
-        const task = {
-            id: UUID.create(1).toString(),
+        this.props.onSave({
             task: this.state.task,
-            isCompleted: true,
+            isCompleted: this.state.complition === 'completed',
             data: this.state.date
-        };
-
-        return task;
+        });
     }
 
     render() {
@@ -74,8 +63,8 @@ export class MenageTodo extends Component {
 
                     <ControlLabel>Expire date</ControlLabel>
                     <FormControl
-                        type="text"
-                        value={this.state.date}
+                        value={this.state.complition}
+                        onChange={e => this.setState({complition: e.target.value})}
                         placeholder="Enter text"
                         onChange={this.handleChangeDate}
                     />
@@ -86,7 +75,7 @@ export class MenageTodo extends Component {
                     className="pull-right" 
                     bsStyle={'primary'}
                 >
-                    Add todos
+                    {this.props.task ? 'Edit' : 'Add'}
                 </Button>
             </div>
         );
@@ -94,5 +83,5 @@ export class MenageTodo extends Component {
 }
 
 MenageTodo.propTypes = {
-    handleCreatTask: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
 };
