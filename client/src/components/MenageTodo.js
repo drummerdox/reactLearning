@@ -51,7 +51,7 @@ export class MenageTodo extends Component {
                         type="text"
                         value={this.state.task}
                         placeholder="Enter text"
-                        onChange={this.handleChangeName}
+                        onChange={e => this.setState({task: e.target.value})}
                     />
                     
                     <ControlLabel>Select</ControlLabel>
@@ -68,6 +68,13 @@ export class MenageTodo extends Component {
                     />
                     </FormGroup>
                 </form>
+                <Button 
+                    onClick = {this.handleCreatTask} 
+                    className="pull-right" 
+                    bsStyle={'primary'}
+                >
+                    {this.props.task ? 'Edit' : 'Add'}
+                </Button>
                 <Button 
                     onClick = {this.handleCreatTask} 
                     className="pull-right" 

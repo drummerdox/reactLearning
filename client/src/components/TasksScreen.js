@@ -5,7 +5,7 @@ import {Home} from './Home';
 import {MenageTodo} from './MenageTodo';
 import {Switch, Route, withRouter} from 'react-router-dom';
 
-export const TasksScreen = withRouter(({tasks, onAdd, onEdit, history}) => (
+export const TasksScreen = withRouter(({tasks, onAdd, onEdit, onDelete, history}) => (
     <Switch>
         <Route
             exact path={'/'}
@@ -21,6 +21,7 @@ export const TasksScreen = withRouter(({tasks, onAdd, onEdit, history}) => (
             <MenageTodo onSave={todo => {
                 onAdd(todo);
                 history.push('/');
+                onDelete(todo);
             }}/>}
         />
         <Route path="/edit/:id" component={props => {

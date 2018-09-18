@@ -33,6 +33,16 @@ export class Todos extends Component {
                     {'edit'}
                     </Link> 
                 </th> 
+                <th>
+                    <Link 
+                        //{...this.props}
+                        to = {'/edit/' + this.props.id } 
+                        task = {task}
+                        params = {task}
+                        >
+                    {'delete'}
+                    </Link> 
+                </th> 
             </React.Fragment>
         );
     }

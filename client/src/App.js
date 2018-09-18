@@ -13,7 +13,7 @@ class App extends Component {
         };
     }
 
-    createTask = task => this.setState({tasks: Model.createTask(this.state.tasks, task)});
+    createTask = (task) => this.setState({tasks: Model.createTask(this.state.tasks, task)});
 
     editTask = (task) => this.setState({tasks: Model.editTask(this.state.tasks, task)});
 
@@ -31,6 +31,7 @@ class App extends Component {
                             onAdd={this.createTask}
                             onEdit={this.editTask}
                             tasks={this.state.tasks}
+                            onDelete={this.deleteTodo}
                         />
                     </div>
                 </div>
