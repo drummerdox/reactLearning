@@ -75,13 +75,18 @@ export class MenageTodo extends Component {
                 >
                     {this.props.task ? 'Edit' : 'Add'}
                 </Button>
-                <Button 
+                {
+                    this.props.task ? 
+                    <Button 
                     onClick = {this.handleCreatTask} 
                     className="pull-right" 
                     bsStyle={'primary'}
                 >
-                    {this.props.task ? 'Edit' : 'Add'}
-                </Button>
+                    {this.props.task ? 'Delete': ''}
+                    </Button>
+                    : ''
+                }
+                
             </div>
         );
     }
