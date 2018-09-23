@@ -6,8 +6,6 @@ export class MenageTodo extends Component {
     constructor(props) {
         super(props);
 
-        console.log(this.props);
-
         if (this.props.task) {
             this.state = {
                 id: this.props.task.id || '',
@@ -41,8 +39,6 @@ export class MenageTodo extends Component {
     }
 
     handleDeleteTask = (e) => {
-        console.log(this.state.task.id);
-
         this.props.onDel(this.state.id);
     }
 
@@ -87,11 +83,11 @@ export class MenageTodo extends Component {
                 {
                     this.props.task ? 
                     <Button 
-                    onClick = {this.handleDeleteTask} 
-                    className="pull-right" 
-                    bsStyle={'primary'}
-                >
-                    {this.props.task ? 'Delete': ''}
+                        onClick = {this.handleDeleteTask} 
+                        className="pull-right" 
+                        bsStyle={'primary'}
+                    >
+                        {this.props.task ? 'Delete': ''}
                     </Button>
                     : ''
                 }

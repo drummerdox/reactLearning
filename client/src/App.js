@@ -18,8 +18,6 @@ class App extends Component {
     editTask = (task) => this.setState({tasks: Model.editTask(this.state.tasks, task)});
 
     deleteTodo = (id) => {
-        console.log('in eleteing ', id);
-
         const newTask = this.state.tasks.filter(task => id !== task.id);
         this.setState({tasks: newTask});
     };

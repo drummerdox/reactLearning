@@ -34,6 +34,7 @@ export const TasksScreen = withRouter(({tasks, onAdd, onEdit, onDelete, history}
                 }}
                 onDel = {todo => {
                     onDelete(todo);
+                    history.push('/');
                 }}
             />
         }}
