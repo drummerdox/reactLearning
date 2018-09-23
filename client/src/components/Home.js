@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {TodoList} from "./TodoList";
-import {AddTodo} from "./AddTodo";
 import {Table} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 export class Home extends Component {
     onHandleClick = () => {
@@ -12,10 +11,6 @@ export class Home extends Component {
     render() {
         return (
             <React.Fragment>
-                <TodoList
-                    todos={this.props.tasks}
-                />
-                
                 <div>
                     <h2>Basic Table</h2>
                     <p></p>
@@ -30,22 +25,17 @@ export class Home extends Component {
                         </thead>
                         <tbody>
                         {
-                            todos.map(todo => (
+                            this.props.tasks.map(todo => (
                                 <tr key={todo.id}>
-                                    <Todos
-                                        {...todo}
-                                        onClick={() => onClick(todo.id)}
-                                    />
-
-                                    <th>{this.props.id}</th>
-                                    <th>{this.props.task}</th>
-                                    <th>{this.props.isCompleted ? 'Completed' : 'Incompleted'}</th>
+                                    <th>{todo.id}</th>
+                                    <th>{todo.task}</th>
+                                    <th>{todo.isCompleted ? 'Completed' : 'Incompleted'}</th>
                                     <th>
                                         <Link 
                                             //{...this.props}
-                                            to = {'/edit/' + this.props.id } 
-                                            task = {task}
-                                            params = {task}
+                                            to = {'/edit/' + todo.id } 
+                                            // task = {task}
+                                            // params = {task}
                                             >
                                         {'edit'}
                                         </Link> 
