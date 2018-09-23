@@ -6,8 +6,11 @@ export class MenageTodo extends Component {
     constructor(props) {
         super(props);
 
+        console.log(this.props);
+
         if (this.props.task) {
             this.state = {
+                id: this.props.task.id || '',
                 task: this.props.task.task || '',
                 date: this.props.task.data || '',
                 complition: this.props.task.isCompleted ? 'completed' : 'incompleted'
@@ -35,6 +38,12 @@ export class MenageTodo extends Component {
             isCompleted: this.state.complition === 'completed',
             data: this.state.date
         });
+    }
+
+    handleDeleteTask = (e) => {
+        console.log(this.state.task.id);
+
+        this.props.onDel(this.state.id);
     }
 
     render() {
@@ -78,7 +87,7 @@ export class MenageTodo extends Component {
                 {
                     this.props.task ? 
                     <Button 
-                    onClick = {this.handleCreatTask} 
+                    onClick = {this.handleDeleteTask} 
                     className="pull-right" 
                     bsStyle={'primary'}
                 >

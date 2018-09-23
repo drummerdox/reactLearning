@@ -18,11 +18,12 @@ export const TasksScreen = withRouter(({tasks, onAdd, onEdit, onDelete, history}
         />
         <Route path={'/about'} component={About}/>
         <Route path="/add" component={() =>
-            <MenageTodo onSave={todo => {
+            <MenageTodo 
+            onSave={todo => {
                 onAdd(todo);
                 history.push('/');
-                onDelete(todo);
-            }}/>}
+            }}
+            />}
         />
         <Route path="/edit/:id" component={props => {
             return <MenageTodo
@@ -30,6 +31,9 @@ export const TasksScreen = withRouter(({tasks, onAdd, onEdit, onDelete, history}
                 onSave={todo => {
                     onEdit({...todo, id: props.match.params.id});
                     history.push('/');
+                }}
+                onDel = {todo => {
+                    onDelete(todo);
                 }}
             />
         }}
