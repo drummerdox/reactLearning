@@ -1,5 +1,5 @@
 import React from 'react';
-import About from './About';
+import {About} from './About';
 import NoMatch from './NoMatch';
 import {Home} from './Home';
 import {MenageTodo} from './MenageTodo';

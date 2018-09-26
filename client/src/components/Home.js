@@ -56,4 +56,3 @@ export const Home = (props) => {
         </div>
     );
 }
-
