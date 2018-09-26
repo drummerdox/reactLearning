@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Table} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import {FilterBar} from './FilterBar';
 
 export const Home = (props) => {
 
@@ -13,7 +14,7 @@ export const Home = (props) => {
         <div>
             <div>
                 <h2>Basic Table</h2>
-                <p></p>
+                <FilterBar/>
                 <Table responsive>
                     <thead>
                     <tr>

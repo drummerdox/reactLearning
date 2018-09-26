@@ -17,7 +17,7 @@ export class MenageTodo extends Component {
             this.state = {
                 task: '',
                 date: '',
-                complition: 'incompleted'
+                complition: '02-02-2018'
             }
         }
     }
@@ -46,7 +46,6 @@ export class MenageTodo extends Component {
         return (
             <div className='container'>
                  <h2>Todo menager</h2>
-                <p></p>
                 <form>
                     <FormGroup
                     controlId="formBasicText"

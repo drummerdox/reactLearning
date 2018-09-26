@@ -1,6 +1,6 @@
 import React from 'react';
 import {About} from './About';
-import NoMatch from './NoMatch';
+import {NoMatch} from './NoMatch';
 import {Home} from './Home';
 import {MenageTodo} from './MenageTodo';
 import {Switch, Route, withRouter} from 'react-router-dom';

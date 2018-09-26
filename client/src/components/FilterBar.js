@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const About = () => {
+export const FilterBar = () => {
     return (
         <React.Fragment>
-            This is about component.
+            This is FilterBar component.
         </React.Fragment>
     );
 }

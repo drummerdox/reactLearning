@@ -12,7 +12,7 @@ class App extends Component {
             tasks: Model.generateSampleTasks()
         };
     }
-
+    
     createTask = (task) => this.setState({tasks: Model.createTask(this.state.tasks, task)});
 
     editTask = (task) => this.setState({tasks: Model.editTask(this.state.tasks, task)});
