@@ -11,35 +11,31 @@ class App extends Component {
 
         this.state = {
             tasks: Model.generateSampleTasks(),
-            filter: 'all'
+            filteredTasks: '',
+            filter: ''
         };
+
+        this.state.filteredTasks = this.state.tasks;
     }
     
-    createTask = (task) => this.setState({tasks: Model.createTask(this.state.tasks, task)});
+    createTask = task => this.setState({tasks: Model.createTask(this.state.tasks, task)});
 
     editTask = (task) => this.setState({tasks: Model.editTask(this.state.tasks, task)});
 
     deleteTodo = (id) => this.setState({tasks: Model.deleteTask(this.state.tasks, id)});
 
     filterTodo = (task) => {
-        console.log(task);
-
         if (task === 'active') {
-            return this.state.tasks.filter(task => task.isCompleted === false);
-            
+            this.setState({filteredTasks: this.state.tasks.filter(task => task.isCompleted === false)});
         } else if (task === 'completed') {
-            return this.state.tasks.filter(task => task.isCompleted === true);
-            
+            this.setState({filteredTasks: this.state.tasks.filter(task => task.isCompleted === true)});
         } else {
-            return this.state.tasks;
-          
+            this.setState({filteredTasks: this.state.tasks});
         }
 
     }
 
     render() {
-        const tasks = this.filterTodo();
-       
         return (
             <Router>
                 <div className="App">
@@ -47,7 +43,7 @@ class App extends Component {
                         <TasksScreen
                             onAdd={this.createTask}
                             onEdit={this.editTask}
-                            tasks={tasks}
+                            tasks={this.state.filteredTasks}
                             onDelete={this.deleteTodo}
                             onFilter={this.filterTodo}
                         />
