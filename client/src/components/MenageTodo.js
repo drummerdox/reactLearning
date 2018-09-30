@@ -66,8 +66,8 @@ export class MenageTodo extends Component {
 
                     <ControlLabel>Expire date</ControlLabel>
                     <FormControl
-                        value={this.state.data}
-                        onChange={e => this.setState({complition: e.target.value})}
+                        value={this.state.date}
+                        onChange={e => this.setState({data: e.target.value})}
                         placeholder="Enter text"
                     />
                     </FormGroup>
