@@ -5,13 +5,14 @@ import {Home} from './Home';
 import {MenageTodo} from './MenageTodo';
 import {Switch, Route, withRouter} from 'react-router-dom';
 
-export const TasksScreen = withRouter(({tasks, onAdd, onEdit, onDelete, history}) => (
+export const TasksScreen = withRouter(({tasks, onAdd, onEdit, onDelete, onFilter, history}) => (
     <Switch>
         <Route
             exact path={'/'}
             component={props =>
                 <Home
                     tasks={tasks}
+                    onFilter={onFilter}
                     history={history}
                 />
             }

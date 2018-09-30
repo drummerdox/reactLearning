@@ -14,7 +14,10 @@ export const Home = (props) => {
         <div>
             <div>
                 <h2>Basic Table</h2>
-                <FilterBar/>
+                <FilterBar
+                    tasks = {props.tasks}
+                    onFilter = {props.onFilter}
+                />
                 <Table responsive>
                     <thead>
                     <tr>
@@ -33,11 +36,8 @@ export const Home = (props) => {
                                 <th>{todo.isCompleted ? 'Completed' : 'Incompleted'}</th>
                                 <th>
                                     <Link 
-                                        //{...this.props}
                                         to = {'/edit/' + todo.id } 
-                                        // task = {task}
-                                        // params = {task}
-                                        >
+                                    >
                                     {'edit'}
                                     </Link> 
                                 </th> 

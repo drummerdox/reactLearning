@@ -17,7 +17,7 @@ export class MenageTodo extends Component {
             this.state = {
                 task: '',
                 date: '',
-                complition: '02-02-2018'
+                complition: '02-01-2019'
             }
         }
     }
@@ -66,7 +66,7 @@ export class MenageTodo extends Component {
 
                     <ControlLabel>Expire date</ControlLabel>
                     <FormControl
-                        value={this.state.complition}
+                        value={this.state.data}
                         onChange={e => this.setState({complition: e.target.value})}
                         placeholder="Enter text"
                     />

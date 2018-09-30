@@ -36,3 +36,9 @@ export function editTask(tasks, task) {
     ...tasks.slice(index + 1),
   ];
 }
+
+export function deleteTask(tasks, id) {
+  const newTask = tasks.filter(task => id !== task.id);
+
+  return newTask;
+}
